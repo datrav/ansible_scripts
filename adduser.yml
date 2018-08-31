@@ -1,0 +1,16 @@
+- hosts: some_host_or_group_of_hosts
+  vars:
+    user_name: some_user_name
+  become: yes
+  tasks:
+   - name: Add the user
+     user:
+      name: "{{ user_name }}"
+      groups: sudo
+      append: yes
+      shell: /bin/bash
+   - name: Set authorized key taken from file
+     authorized_key:
+       user: "{{ user_name }}"
+       state: present
+       key: "{{ lookup('file', '/home/master/ansible_scripts/user_public.key') }}"
