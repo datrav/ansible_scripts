@@ -1,0 +1,10 @@
+- hosts: kz-prod-adminka
+  vars:
+    user_name: some_user_name
+  become: yes
+  tasks:
+   - name: Remove user from system
+     user:
+      name: "{{user_name}}"
+      state: absent
+      remove: yes
